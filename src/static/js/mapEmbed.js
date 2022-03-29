@@ -1,20 +1,66 @@
 let map;
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: new google.maps.LatLng(-33.91722, 151.23064),
-        zoom: 16,
-    });
-
-    const icons = {
-        store: {
-            icon: "static/images/store_front_icon.png",
+    const mapStyles = [{
+            "featureType": "administrative",
+            "elementType": "geometry",
+            "stylers": [{
+                "visibility": "off"
+            }]
         },
-        bin: {
-            icon: "static/images/charity_bin_icon.png",
+        {
+            "featureType": "poi",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "road",
+            "elementType": "labels.icon",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "labels",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "labels",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "road.local",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "transit",
+            "stylers": [{
+                "visibility": "off"
+            }]
         }
-    };
-    const features = [{
+    ];
+
+    const mapOptions = {
+        center: new google.maps.LatLng(50.816946, -1.089735),
+        zoom: 12,
+        styles: mapStyles,
+        mapTypeControl: false,
+        disableDefaultUI: true,
+        zoomControl: true,
+    }
+
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    const locations = [{
             position: new google.maps.LatLng(-33.91721, 151.2263),
             type: "store",
         },
@@ -24,12 +70,22 @@ function initMap() {
         },
     ];
 
+    markerHandler(locations, map)
     // Create markers.
-    for (let i = 0; i < features.length; i++) {
-        const marker = new google.maps.Marker({
-            position: features[i].position,
-            icon: icons[features[i].type].icon,
+}
+
+const markerHandler = (markers, map) => {
+
+    const icons = {
+        store: "static/images/store_front_icon.png",
+        bin: "static/images/charity_bin_icon.png"
+    };
+
+    markers.forEach((marker, index) => {
+        new google.maps.Marker({
+            position: marker.position,
+            icon: icons[marker.type],
             map: map,
         });
-    }
+    })
 }
