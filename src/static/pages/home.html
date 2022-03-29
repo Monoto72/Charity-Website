@@ -1,6 +1,5 @@
 <!-- static/about.html -->
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,10 +16,7 @@
 	<!-- Font Awesome if you need it
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
   -->
-	<link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-	<!--Replace with your tailwind.css once created-->
-	<link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />
-	<!--Tailwind Custom Forms - use to standardise form fields - https://github.com/tailwindcss/custom-forms-->
+	<link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
 
 	<style>
 		@import url("https://rsms.me/inter/inter.css");
@@ -80,11 +76,13 @@
 		<div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-2 lg:py-6">
 			<div class="pl-4 flex items-center">
 				<a class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-					<svg class="h-6 w-6 inline-block fill-current text-yellow-700" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20">
-						<path d="M13 8V0L8.11 5.87 3 12h4v8L17 8h-4z" />
+					<svg class="h-10 w-10 inline-block fill-current text-blue-700" xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 384 512">
+						<!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+						<path
+							d="M192 408C196.4 408 200 411.6 200 416C200 420.4 196.4 424 192 424C134.6 424 88 377.4 88 319.1C88 315.6 91.58 311.1 96 311.1C100.4 311.1 104 315.6 104 319.1C104 368.6 143.4 408 192 408zM368 319.1C368 417.2 289.2 496 192 496C94.8 496 16 417.2 16 319.1C16 245.9 118.3 89.43 166.9 19.3C179.2 1.585 204.8 1.585 217.1 19.3C265.7 89.43 368 245.9 368 319.1zM336.4 257.5C326.4 232.2 312.4 204.1 296.8 175.9C265.5 119.4 228.1 63.3 203.9 28.42C197.1 19.88 186 19.88 180.1 28.42C155.9 63.3 118.5 119.4 87.24 175.9C71.59 204.1 57.63 232.2 47.63 257.5C37.48 283.2 31.1 304.6 31.1 319.1C31.1 408.4 103.6 480 191.1 480C280.4 480 352 408.4 352 319.1C352 304.6 346.5 283.2 336.4 257.5H336.4z" />
 					</svg>
-					Bolt App
+					Drip Drop
 				</a>
 			</div>
 
@@ -141,7 +139,7 @@
 
 		<div class="flex items-center w-full mx-auto content-end">
 			<div class="browser-mockup flex flex-1 m-6 md:px-0 md:m-12 bg-white w-1/2 rounded shadow-xl">
-				<div id="map"></div>
+				<div class="h-96" id="map"></div>
 			</div>
 		</div>
 	</div>
@@ -181,10 +179,13 @@
 			<div class="w-full flex flex-col md:flex-row py-6">
 				<div class="flex-1 mb-6">
 					<a class="text-orange-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-						<svg class="h-6 w-6 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-							<path d="M13 8V0L8.11 5.87 3 12h4v8L17 8h-4z" />
+						<svg class="h-10 w-10 inline-block fill-current text-blue-700"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+							<!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+							<path
+								d="M192 408C196.4 408 200 411.6 200 416C200 420.4 196.4 424 192 424C134.6 424 88 377.4 88 319.1C88 315.6 91.58 311.1 96 311.1C100.4 311.1 104 315.6 104 319.1C104 368.6 143.4 408 192 408zM368 319.1C368 417.2 289.2 496 192 496C94.8 496 16 417.2 16 319.1C16 245.9 118.3 89.43 166.9 19.3C179.2 1.585 204.8 1.585 217.1 19.3C265.7 89.43 368 245.9 368 319.1zM336.4 257.5C326.4 232.2 312.4 204.1 296.8 175.9C265.5 119.4 228.1 63.3 203.9 28.42C197.1 19.88 186 19.88 180.1 28.42C155.9 63.3 118.5 119.4 87.24 175.9C71.59 204.1 57.63 232.2 47.63 257.5C37.48 283.2 31.1 304.6 31.1 319.1C31.1 408.4 103.6 480 191.1 480C280.4 480 352 408.4 352 319.1C352 304.6 346.5 283.2 336.4 257.5H336.4z" />
 						</svg>
-						Bolt App
+						Drip Drop
 					</a>
 				</div>
 
@@ -298,6 +299,9 @@
 			}
 			return false;
 		}
+	</script>
+	<script src="{% static '/js/mapEmbed.js' %}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX5rfiSZy6aA8W_r0YBy-kVPPHfP99EkA&callback=initMap">
 	</script>
 </body>
 
