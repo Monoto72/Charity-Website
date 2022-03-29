@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
   -->
 	<link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+	<script src="{% static '/js/mapEmbed.js' %}"></script>
 
 	<style>
 		@import url("https://rsms.me/inter/inter.css");
@@ -139,7 +140,9 @@
 
 		<div class="flex items-center w-full mx-auto content-end">
 			<div class="browser-mockup flex flex-1 m-6 md:px-0 md:m-12 bg-white w-1/2 rounded shadow-xl">
-				<div class="h-96" id="map"></div>
+				<div class="w-full" id="map"></div>
+				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX5rfiSZy6aA8W_r0YBy-kVPPHfP99EkA&callback=initMap" async>
+				</script>
 			</div>
 		</div>
 	</div>
@@ -260,49 +263,6 @@
 			</div>
 		</div>
 	</footer>
-
-	<script>
-		/*Toggle dropdown list*/
-		/*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
-
-		var navMenuDiv = document.getElementById("nav-content");
-		var navMenu = document.getElementById("nav-toggle");
-
-		document.onclick = check;
-
-		function check(e) {
-			var target = (e && e.target) || (event && event.srcElement);
-
-			//Nav Menu
-			if (!checkParent(target, navMenuDiv)) {
-				// click NOT on the menu
-				if (checkParent(target, navMenu)) {
-					// click on the link
-					if (navMenuDiv.classList.contains("hidden")) {
-						navMenuDiv.classList.remove("hidden");
-					} else {
-						navMenuDiv.classList.add("hidden");
-					}
-				} else {
-					// click both outside link and outside menu, hide menu
-					navMenuDiv.classList.add("hidden");
-				}
-			}
-		}
-
-		function checkParent(t, elm) {
-			while (t.parentNode) {
-				if (t == elm) {
-					return true;
-				}
-				t = t.parentNode;
-			}
-			return false;
-		}
-	</script>
-	<script src="{% static '/js/mapEmbed.js' %}"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX5rfiSZy6aA8W_r0YBy-kVPPHfP99EkA&callback=initMap">
-	</script>
 </body>
-
+<script src="{% static '/js/index.js' %}"></script>
 </html>
