@@ -1,4 +1,7 @@
 let map;
+let toggle = false;
+
+const mapData = JSON.parse(document.getElementById(`mapData`).textContent);
 
 function initMap() {
     const mapStyles = [{
@@ -60,32 +63,41 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    const locations = [{
-            position: new google.maps.LatLng(-33.91721, 151.2263),
-            type: "store",
-        },
-        {
-            position: new google.maps.LatLng(-33.91539, 151.2282),
-            type: "bin",
-        },
-    ];
+    mapData.forEach(marker => {
 
-    markerHandler(locations, map)
-    // Create markers.
-}
+        infoContent =
+            `<div id="content">
+                <div id="siteNotice">
+                </div>
+                <h1 class="text-xl text-center"><b>${marker.name}</b></h1>
+                <div id="bodyContent">
+                    <p class="text-center">${marker.address}<p>
+                </div>
+            </div>`;
 
-const markerHandler = (markers, map) => {
+        const infoWindow = new google.maps.InfoWindow({
+            content: infoContent
+        });
 
-    const icons = {
-        store: "static/images/store_front_icon.png",
-        bin: "static/images/charity_bin_icon.png"
-    };
-
-    markers.forEach((marker, index) => {
-        new google.maps.Marker({
-            position: marker.position,
-            icon: icons[marker.type],
+        const blip = new google.maps.Marker({
+            position: new google.maps.LatLng(marker.geolocation.longitude, marker.geolocation.latitude),
+            label: marker.name[0],
+            title: marker.name,
             map: map,
+        });
+
+        blip.addListener("click", () => {
+            if (!toggle) {
+                infoWindow.open({
+                    anchor: blip,
+                    map,
+                    shouldFocus: false
+                })
+                toggle = !toggle
+            } else {
+                infoWindow.close()
+                toggle = !toggle
+            }
         });
     })
 }
