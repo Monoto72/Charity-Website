@@ -81,7 +81,7 @@ function initMap() {
 
         const blip = new google.maps.Marker({
             position: new google.maps.LatLng(marker.geolocation.longitude, marker.geolocation.latitude),
-            label: marker.name[0],
+            label: marker.type == 1 ? 'S' : 'B',
             title: marker.name,
             map: map,
         });
@@ -100,4 +100,15 @@ function initMap() {
             }
         });
     })
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const latLng = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            };
+
+            map.setCenter(latLng);
+        });
+    }
 }
