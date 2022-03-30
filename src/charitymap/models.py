@@ -3,7 +3,7 @@ from django_google_maps import fields as map_fields
 
 # Create your models here.
 
-class Store(models.Model):
+class Locations(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
