@@ -29,9 +29,9 @@ GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
 #GDAL_LIBRARY_PATH = r'C:\OSGeo4W64\bin\gdal111'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
