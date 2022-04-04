@@ -29,7 +29,7 @@ GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
 #GDAL_LIBRARY_PATH = r'C:\OSGeo4W64\bin\gdal111'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -62,6 +62,8 @@ INTERNAL_IPS = [
 ]
 
 ROOT_URLCONF = 'DripDrop.urls'
+
+STATIC_ROOT = "/static/"
 
 TEMPLATES = [
     {
@@ -129,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "./static",
+    BASE_DIR / "./static/",
 ]
 
 # Default primary key field type
