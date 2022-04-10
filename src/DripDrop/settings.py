@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'charitymap.apps.CharitymapConfig',
-    'django_google_maps'
+    'django_google_maps',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
