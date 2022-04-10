@@ -1,0 +1,47 @@
+{% load static %}
+
+<nav id="header" class="w-full z-30 top-0 text-white py-1 lg:py-6">
+    <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-2 lg:py-6">
+        <div class="pl-4 flex items-center">
+            <a class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="/">
+                <svg class="h-10 w-10 inline-block fill-current text-blue-700" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 384 512">
+                    <path
+                        d="M192 408C196.4 408 200 411.6 200 416C200 420.4 196.4 424 192 424C134.6 424 88 377.4 88 319.1C88 315.6 91.58 311.1 96 311.1C100.4 311.1 104 315.6 104 319.1C104 368.6 143.4 408 192 408zM368 319.1C368 417.2 289.2 496 192 496C94.8 496 16 417.2 16 319.1C16 245.9 118.3 89.43 166.9 19.3C179.2 1.585 204.8 1.585 217.1 19.3C265.7 89.43 368 245.9 368 319.1zM336.4 257.5C326.4 232.2 312.4 204.1 296.8 175.9C265.5 119.4 228.1 63.3 203.9 28.42C197.1 19.88 186 19.88 180.1 28.42C155.9 63.3 118.5 119.4 87.24 175.9C71.59 204.1 57.63 232.2 47.63 257.5C37.48 283.2 31.1 304.6 31.1 319.1C31.1 408.4 103.6 480 191.1 480C280.4 480 352 408.4 352 319.1C352 304.6 346.5 283.2 336.4 257.5H336.4z" />
+                </svg>
+                Drip Drop
+            </a>
+        </div>
+
+        <div class="block lg:hidden pr-4">
+            <button id="nav-toggle"
+                class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-green-500 appearance-none focus:outline-none">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20"
+            id="nav-content">
+            <ul class="list-reset lg:flex justify-end flex-1 items-center">
+                <li class="mr-3">
+                    <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">Active</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                        href="#">link</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                        href="#">link</a>
+                </li>
+            </ul>
+            <button id="navAction"
+                class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-4 px-8 shadow opacity-75">
+                Log In
+            </button>
+        </div>
+    </div>
+</nav>
