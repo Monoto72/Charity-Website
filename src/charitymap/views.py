@@ -96,6 +96,18 @@ def logout_req(request):
     else:
         return redirect("/")
 
+
+def suggest_location(request):
+    logged_in = False
+    if request.user.is_authenticated:
+        logged_in = True
+    else:
+        return redirect("/")
+
+    url = "Suggest Location"
+    return render(request, "suggest.html", { "page_url": url, "is_auth": logged_in })
+
+
 def error_response(request, exception):
     return render(request, '404.html')
 
