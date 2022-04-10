@@ -25,13 +25,15 @@
 				Sub-hero message, not too long and not too short. Make it just right!
 			</p>
 
+			{% if is_auth != True %}
 			<a href="/register">
-			<button
-				class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48">
-				Sign Up
-			</button>
-		</a>
-			<a href="/signup"
+				<button
+					class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48">
+					Sign Up
+				</button>
+			</a>
+			{% endif %}
+			<a href="#"
 				class="inline-block mx-auto lg:mx-0 hover:underline bg-transparent text-gray-600 font-extrabold my-2 md:my-6 py-2 lg:py-4 px-8">View
 				Additional Action</a>
 		</div>

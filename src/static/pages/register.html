@@ -1,6 +1,5 @@
 <!-- static/register.html -->
 {% load static %}
-{% load widget_tweaks %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +21,7 @@
     <form method="POST" class="justify-center items-center shadow-xl element-shadow rounded-lg bg-white mb-8 p-10">
         {% csrf_token %}
         {% for field in register_form %}
-        <div class="text-center register-form">
+        <div class="text-center custom-form">
             <h2 class="font-bold">{{field.label_tag}}</h2>
             {{ field }}
             {% if field.help_text %}

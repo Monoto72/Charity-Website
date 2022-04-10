@@ -1,0 +1,39 @@
+<!-- static/login.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!--Head-->
+{% include 'components/head.html' %}
+{% block head %} {% endblock %}
+
+<body class="gradient leading-relaxed tracking-wide flex flex-col">
+    <!--Header-->
+    {% include 'components/header.html' %}
+    {% block header %} {% endblock %}
+
+    <!--Login-->
+    {% block content %}
+    <div class="flex flex-col justify-center items-center">
+        <h1 class="text-3xl font-bold">Login</h1>
+        <p class="text-center">Don't have an account?, <a href="/register">register</a> instead.</p><br>
+        <form method="POST" class="justify-center items-center shadow-xl element-shadow rounded-lg bg-white mb-8 p-10">
+            {% csrf_token %}
+            {% for field in login_form %}
+            <div class="text-center custom-form">
+                <h2 class="font-bold">{{field.label_tag}}</h2>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <br><button class="w-full p-2 rounded-lg" type="submit">Login</button>
+        </form>
+    </div>
+    {% endblock %}
+
+    <!--Footer-->
+    {% include 'components/footer.html' %}
+    {% block footer %} {% endblock %}
+</body>
+
+</html>
