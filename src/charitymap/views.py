@@ -51,12 +51,16 @@ def register_req(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
             login(request, user)
-            messages.success(request, "Registration successful." )
-            return redirect("/")
+            redirect("/")
+            return messages.success(request, "Registration successful." )
         messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = CreateUserForm()
+    else:
+        form = CreateUserForm()
     return render (request, 'register.html', {"register_form": form, "page_url": url })
 
 

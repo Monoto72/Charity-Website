@@ -11,6 +11,22 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ("username", "first_name", "last_name", "email", "password1", "password2")
 
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError('This email has already been used.')
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        try:
+            match = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError('Username has already been taken.')
+
     def save(self, commit=True):
         user = super(CreateUserForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
