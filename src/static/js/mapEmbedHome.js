@@ -1,7 +1,7 @@
 let map;
 let toggle = false;
 
-const mapData = JSON.parse(document.getElementById(`mapData`).textContent);
+const mapData = JSON.parse(document.getElementById(`mapEmbedHome`).textContent);
 
 function initMap() {
     const mapStyles = [{

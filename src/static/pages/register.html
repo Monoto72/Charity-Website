@@ -8,40 +8,43 @@
 {% include 'components/head.html' %}
 {% block head %} {% endblock %}
 
-<body class="gradient leading-relaxed tracking-wide flex flex-col">
-<!--Header-->
-{% include 'components/header.html' %}
-{% block header %} {% endblock %}
+<body class="gradient leading-relaxed tracking-wide flex flex-col h-screen">
+    <!--Header-->
+    {% include 'components/header.html' %}
+    {% block header %} {% endblock %}
 
-{% include 'components/messages.html' %}
+    {% include 'components/messages.html' %}
 
-<!--Form-->
-{% block content %}
-<div class="flex flex-col justify-center items-center">
-    <h1 class="text-3xl font-bold">Register</h1>
-    <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p><br>
-    <form method="POST" class="justify-center items-center shadow-xl element-shadow rounded-lg bg-white mb-8 p-10">
-        {% csrf_token %}
-        {% for field in register_form %}
-        <div class="text-center custom-form">
-            <h2 class="font-bold">{{field.label_tag}}</h2>
-            {{ field }}
-            {% if field.help_text %}
-            <br><small style="color: grey">{{ field.help_text }}</small>
-            {% endif %}
-            {% for error in field.errors %}
-            <p class="bg-red-300 text-white custom-error">{{ error|escape }}</p>
+    <!--Form-->
+    {% block content %}
+    <div class="flex flex-col justify-center items-center flex-grow">
+        <h1 class="text-3xl font-bold">Register</h1>
+        <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p><br>
+        <form method="POST" class="justify-center items-center shadow-xl element-shadow rounded-lg bg-white mb-8 p-10">
+            {% csrf_token %}
+            {% for field in register_form %}
+            <div class="text-center custom-form">
+                <h2 class="font-bold">{{field.label_tag}}</h2>
+                {{ field }}
+                {% if field.help_text %}
+                <br><small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                <p class="bg-red-300 text-white custom-error">{{ error|escape }}</p>
+                {% endfor %}
+            </div>
             {% endfor %}
-        </div>
-        {% endfor %}
-        <br><button class="w-full p-2 rounded-lg" type="submit">Register</button>
-    </form>
-</div>
-{% endblock %}
+            <br><button class="w-full p-2 rounded-lg" type="submit">Register</button>
+        </form>
+    </div>
+    {% endblock %}
 
-<!--Footer-->
-{% include 'components/footer.html' %}
-{% block footer %} {% endblock %}
+    {% include 'components/body-wave.html' %}
+    {% block wave %} {% endblock %}
+
+    <!--Footer-->
+    {% include 'components/footer.html' %}
+    {% block footer %} {% endblock %}
 </body>
 
 </html>

@@ -99,13 +99,44 @@ def logout_req(request):
 
 def suggest_location(request):
     logged_in = False
+    username = None
+    data = []
+
     if request.user.is_authenticated:
         logged_in = True
+        username = request.user.username
     else:
         return redirect("/")
 
+    try:
+        locations = Locations.objects.all()
+        for x in locations:
+            location = str(x.geolocation).split(",")
+            json = {
+                "name": x.name,
+                "address": x.address,
+                "type": int(x.type),
+                "geolocation": {
+                    "longitude": float(location[0]),
+                    "latitude": float(location[1])
+                }
+            }
+            data.append(json)
+    except Locations.DoesNotExist:
+        raise Http404('Database does not exist')
+
+    if request.method == "POST":
+        address = request.POST.get("address")
+        location = request.POST.get("location")
+        type = request.POST.get("type")
+        if "accepted_suggestion" in request.POST:
+            messages.info(request, f"We appreciate your input!")
+        elif "denied_suggestion" in request.POST:
+            messages.info(request, f"We appreciate your input!")
+
+    print(username)
     url = "Suggest Location"
-    return render(request, "suggest.html", { "page_url": url, "is_auth": logged_in })
+    return render(request, "suggest.html", { "page_url": url, "is_auth": logged_in, "dummy_data": data })
 
 
 def error_response(request, exception):
