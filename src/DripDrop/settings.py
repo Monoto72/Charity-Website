@@ -10,14 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 from pathlib import Path
-import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-env = environ.Env()
-environ.Env.read_env()
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -25,7 +20,7 @@ environ.Env.read_env()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-r@lt_q(1xyaou%a(87yuonrcfs^7xng)vntakrb@m^vcw^!nt0'
 # NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
-GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
+GOOGLE_MAPS_API_KEY = 'AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A'
 #GDAL_LIBRARY_PATH = r'C:\OSGeo4W64\bin\gdal111'
 
 # SECURITY WARNING: don't run with debug turned on in production!

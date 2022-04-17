@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.http import Http404
-from charitymap.models import Location, SuggestedLocation
+from charitymap.models import Location, SuggestedLocation, VotedLocations
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
@@ -148,52 +148,52 @@ def suggest_location(request):
         route: Generates the suggestion page with the populated entries
     """
     logged_in = False
-    username = None
-    data = []
+    
+    suggested_data = []
 
     if request.user.is_authenticated:
         logged_in = True
-        username = request.user.username
     else:
         return redirect("/")
 
     url = "Suggest Location"
 
     try:
-        locations = SuggestedLocation.objects.all()
-        for x in locations:
-            if not x.name == "Deleted":
-                location = str(x.geolocation).split(",")
+        suggested_locations = SuggestedLocation.objects.all()
+        for x in suggested_locations:
+            coords = str(x.geolocation).split(",")
+            suggested_location = VotedLocations.objects.filter(suggestion=x).filter(user=request.user.id)
+            if not suggested_location.exists():
                 json = {
                     "name": x.name,
                     "address": x.address,
-                    "type": int(x.type),
+                    "type": x.type,
                     "votes": int(x.votes),
                     "geolocation": {
-                        "longitude": float(location[0]),
-                        "latitude": float(location[1])
+                        "longitude": float(coords[0]),
+                        "latitude": float(coords[1])
                     }
                 }
-                data.append(json)
+                suggested_data.append(json)
+            
     except Location.DoesNotExist:
         raise Http404('Database does not exist')
-
+    
     if request.method == "POST":
-        address = request.POST.get("address")
         location = request.POST.get("location")
-        location_arr = str(x.geolocation).split(",")
+        location_arr = str(location).split(",")
         if "accepted_suggestion" in request.POST:
-            vote_handler(locations, location_arr, True)
+            vote_handler(suggested_locations, location_arr, True, request.user)
             return redirect("/suggest")
         elif "denied_suggestion" in request.POST:
-            vote_handler(locations, location_arr, False)
+            vote_handler(suggested_locations, location_arr, False, request.user)
             return redirect("/suggest")
 
-    print(username)
-    return render(request, "suggest.html", { "page_url": url, "is_auth": logged_in, "map_data": data })
+    return render(request, "suggest.html", { "page_url": url, "is_auth": logged_in, "map_data": suggested_data })
 
 
-def vote_handler(data, location, boolean):
+
+def vote_handler(data, location, boolean, user):
     """Takes the data from the modal, once 10 votes are accumulated, it populates the main Locations model with the suggested location.
 
     Args:
@@ -220,7 +220,37 @@ def vote_handler(data, location, boolean):
                         SuggestedLocation.objects.filter(pk=index+1).update(votes=x.votes-1)
                 else:
                     SuggestedLocation.objects.filter(pk=index+1).update(votes=iteration)
+                VotedLocations.objects.create(user=user, suggestion=x)
     return redirect("/suggest")
+
+
+def suggest_new_location(request):
+    logged_in = False
+
+    if request.user.is_authenticated:
+        logged_in = True
+    else:
+        return redirect("/")
+
+    url = "New Location"
+    if request.method == "POST":
+        name = request.POST.get("name")
+        address = request.POST.get("address")
+        location = request.POST.get("location")
+        type = request.POST.get("type")
+        
+        if "accepted_suggestion" in request.POST:
+            try:
+                suggested_locations = SuggestedLocation.objects.filter(address=address)
+                if suggested_locations.exists():
+                    messages.error(request,"Location already exist!")
+                    return redirect("/suggest/new")
+                else:
+                    SuggestedLocation.objects.create(name=name, address=address, geolocation=location, type=type)
+                    return redirect("/suggest/")
+            except SuggestedLocation.DoesNotExist:
+                raise Http404('Database does not exist')
+    return render(request, "suggest-new.html", { "page_url": url, "is_auth": logged_in })
 
 
 def error_response(request, exception):

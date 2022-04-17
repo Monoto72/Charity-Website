@@ -3,6 +3,8 @@ const modalNode = document.querySelector('#modal');
 
 const suggestedMapData = JSON.parse(document.getElementById(`mapEmbedSuggest`).textContent);
 
+console.dir(suggestedMapData)
+
 suggestionNodeList.forEach(element => {
     element.addEventListener('click', (event) => {
         toggleModal(suggestedMapData[event.path[0].id-1]);

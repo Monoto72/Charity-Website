@@ -8,7 +8,7 @@
 {% include 'components/head.html' %}
 {% block head %} {% endblock %}
 
-<body class="gradient leading-relaxed tracking-wide flex flex-col h-screen">
+<body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow">
     <!--Header-->
     {% include 'components/header.html' %}
     {% block header %} {% endblock %}
@@ -40,5 +40,6 @@
     {% include 'components/footer.html' %}
     {% block footer %} {% endblock %}
 </body>
+<script src="{% static 'js/navbar.js' %}"></script>
 
 </html>

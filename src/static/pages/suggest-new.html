@@ -1,0 +1,82 @@
+<!-- static/suggest-new.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!--Head-->
+{% include 'components/head.html' %}
+{% block head %} {% endblock %}
+
+<body class="gradient leading-relaxed tracking-wide flex flex-col flex">
+    <!--Header-->
+    {% include 'components/header.html' %}
+    {% block header %} {% endblock %}
+
+    {% include 'components/messages.html' %}
+
+    <!--Create-->
+
+    <script src="{% static 'js/mapEmbedSuggestNew.js' %}"></script>
+    <div id="modal" class="flex justify-center overflow-y-auto overflow-x-hidden w-full h-modal md:h-full pb-10">
+        <div class="p-4 w-full max-w-2xl h-full md:h-auto">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex justify-center p-5 rounded-t border-b dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
+                        New Suggestion
+                    </h3>
+                </div>
+                <!-- Modal body -->
+                <div id="body" class="p-6 space-y-6">
+                    <div class="w-full h-60" id="map"></div>
+                    <script type="text/javascript"
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A&libraries=places"
+                        async></script>
+                    </script>
+                    <div class="text-base text-center leading-relaxed text-gray-500 dark:text-gray-400">
+                        <form method="POST" class="justify-center items-center">
+                            {% csrf_token %}
+                            <div class="text-center w-full custom-form">
+                                <h2 class="font-bold">Address</h2>
+                                <input name="address" id="suggestion-address" class="form-control" type="text"
+                                    required></input>
+                                <h2 class="font-bold">Name</h2>
+                                <input name="name" id="suggestion-name" class="form-control" type="text"
+                                    placeholder="You may need to edit this..." required></input>
+                                <input name="location" id="suggestion-geolocation"
+                                    class="form-control pointer-events-none hidden" type="text" required></input>
+                                <h2 class="font-bold">Type</h2>
+                                <select name="type" id="suggestion-type" class="form-select">
+                                    <option value="1">Store</option>
+                                    <option value="2">Bin</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div
+                                class="flex justify-center items-center p-4 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                                <button name="accepted_suggestion" id="accept-suggestion" type="submit"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {% include 'components/body-wave.html' %}
+    {% block wave %} {% endblock %}
+
+    <!--Footer-->
+    {% include 'components/footer.html' %}
+    {% block footer %} {% endblock %}
+</body>
+<script src="{% static 'js/navbar.js' %}"></script>
+
+
+</html>
