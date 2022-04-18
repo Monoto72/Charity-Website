@@ -161,20 +161,21 @@ def suggest_location(request):
     try:
         suggested_locations = SuggestedLocation.objects.all()
         for x in suggested_locations:
-            coords = str(x.geolocation).split(",")
-            suggested_location = VotedLocations.objects.filter(suggestion=x).filter(user=request.user.id)
-            if not suggested_location.exists():
-                json = {
-                    "name": x.name,
-                    "address": x.address,
-                    "type": x.type,
-                    "votes": int(x.votes),
-                    "geolocation": {
-                        "longitude": float(coords[0]),
-                        "latitude": float(coords[1])
+            if not x.name == "Deleted":
+                coords = str(x.geolocation).split(",")
+                suggested_location = VotedLocations.objects.filter(suggestion=x).filter(user=request.user.id)
+                if not suggested_location.exists():
+                    json = {
+                        "name": x.name,
+                        "address": x.address,
+                        "type": x.type,
+                        "votes": int(x.votes),
+                        "geolocation": {
+                            "longitude": float(coords[0]),
+                            "latitude": float(coords[1])
+                        }
                     }
-                }
-                suggested_data.append(json)
+                    suggested_data.append(json)
             
     except Location.DoesNotExist:
         raise Http404('Database does not exist')
