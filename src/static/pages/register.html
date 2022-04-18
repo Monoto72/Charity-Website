@@ -8,7 +8,7 @@
 {% include 'components/head.html' %}
 {% block head %} {% endblock %}
 
-<body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow pt-28">
+<body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow h-max">
     <!--Header-->
     {% include 'components/header.html' %}
     {% block header %} {% endblock %}
@@ -17,7 +17,7 @@
 
     <!--Form-->
     {% block content %}
-    <div class="flex flex-col justify-center items-center flex-grow">
+    <div class="flex flex-col justify-center items-center flex-grow py-24">
         <h1 class="text-3xl font-bold">Register</h1>
         <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p><br>
         <form method="POST" class="justify-center items-center shadow-xl element-shadow rounded-lg bg-white mb-8 p-10">
@@ -46,5 +46,6 @@
     {% include 'components/footer.html' %}
     {% block footer %} {% endblock %}
 </body>
+<script src="{% static 'js/navbar.js' %}"></script>
 
 </html>

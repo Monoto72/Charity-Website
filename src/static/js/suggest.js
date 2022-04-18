@@ -1,9 +1,8 @@
 const suggestionNodeList = document.querySelector('#charity-suggestions').querySelectorAll('.suggestion');
 const modalNode = document.querySelector('#modal');
+const HTMLBody = document.querySelector('body');
 
 const suggestedMapData = JSON.parse(document.getElementById(`mapEmbedSuggest`).textContent);
-
-console.dir(suggestedMapData)
 
 suggestionNodeList.forEach(element => {
     element.addEventListener('click', (event) => {
@@ -39,8 +38,9 @@ const toggleModal = (modalData) => {
         modalNode.querySelector('#suggestion-address').value = modalData.address;
         modalNode.querySelector('#suggestion-geolocation').value = `${modalData.geolocation.longitude},${modalData.geolocation.latitude}`;
         modalNode.querySelector('#suggestion-type').value = modalData.type == 1 ? 'Charity Store' : 'Charity Bin';
-
+        HTMLBody.classList.add('overflow-hidden')
     } else {
         modalNode.classList.replace('modal-block', 'hidden');
+        HTMLBody.classList.remove('overflow-hidden')
     }
 }
