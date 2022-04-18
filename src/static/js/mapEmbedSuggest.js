@@ -7,7 +7,6 @@ let modalData = {}
 
 charityNodeList.forEach(element => {
     element.addEventListener('click', (event) => {
-        console.log(event)
         modalData = mapData[event.path[0].id-1];
         map.setCenter({
             lat: modalData.geolocation.longitude,
