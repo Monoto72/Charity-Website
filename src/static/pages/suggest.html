@@ -9,20 +9,20 @@
 {% include 'components/head.html' %}
 {% block head %} {% endblock %}
 
-<body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow pt-28">
+<body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow py-28">
     <!--Header-->
     {% include 'components/header.html' %}
     {% block header %} {% endblock %}
 
     <!--Suggest Location-->
-    <div class="container mx-auto flex-grow">
+    <div class="container mx-auto px-4">
         <div>
             <h1 class="my-4 text-2xl md:text-3xl lg:text-5xl font-black leading-tight text-center">
                 Suggestions
             </h1>
         </div>
         <div class="flex justify-center">
-            <p class="leading-normaltext-gray-800 text-base md:text-xl lg:text-xl mb-8 text-center w-1/2">
+            <p class="leading-normaltext-gray-800 text-base md:text-xl lg:text-xl mb-8 text-center">
                 Want to help us future proof? Well, here you can. Please give us your input and vote the locations
                 below, ensuring your vote is correct.<br><i class="lg:text-base font-bold">If found abused, your account
                     wil be locked!</i>
@@ -41,8 +41,8 @@
     {% if not map_data %}
     <h2>There are no places to vote</h2>
     {% else %}
-    <div class="max-w-2xl mx-auto">
-
+    <div class="flex items-center w-full mx-auto content-end"></div>
+    <div class=" bg-white w-full self-center md:w-1/2 rounded shadow-xl">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
             <div class="p-4">
                 <table id="charity-suggestions" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -66,19 +66,19 @@
                         {% for i in map_data %}
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                            <th scope="row" class="overflow-hidden px-6 py-3 font-medium text-gray-900 dark:text-white">
                                 {{ i.name }}
                             </th>
-                            <td class="px-6 py-4 text-center">
+                            <td class="px-6 py-3 text-center">
                                 <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" target="_blank"
                                     href="https://www.google.com/maps/search/google+maps/@{{ i.geolocation.longitude }},{{ i.geolocation.latitude }},19z">
                                     View
                                 </a>
                             </td>
-                            <td class="px-6 py-4 text-center">
+                            <td class="px-6 py-3 text-center">
                                 {{ i.votes }}
                             </td>
-                            <td class="px-6 py-4 text-right">
+                            <td class="px-6 py-3 text-right">
                                 <button id="{{ forloop.counter }}"
                                     class="suggestion mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-2 px-8 shadow opacity-7">
                                     Vote
@@ -89,6 +89,8 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        </div>
         </div>
         <div class="flex m-6 md:px-0 md:m-12 w-1/2 rounded shadow-xl">
             <script src="{% static 'js/mapEmbedSuggest.js' %}"></script>

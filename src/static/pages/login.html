@@ -17,7 +17,7 @@
 
     <!--Login-->
     {% block content %}
-    <div class="flex flex-col justify-center items-center flex-grow pt-28">
+    <div class="flex flex-col justify-center items-center flex-grow py-28">
         <h1 class="text-3xl font-bold">Login</h1>
         <p class="text-center">Don't have an account?, <a href="/register">register</a> instead.</p><br>
         <form method="POST" class="justify-center items-center shadow-xl element-shadow rounded-lg bg-white mb-8 p-10">
@@ -28,7 +28,8 @@
                 {{ field }}
             </div>
             {% endfor %}
-            <br><button class="w-full p-2 rounded-lg" type="submit">Login</button>
+            <br>
+            <button class="w-full p-2 rounded-lg" type="submit">Login</button>
         </form>
     </div>
     {% endblock %}
