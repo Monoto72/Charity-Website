@@ -24,7 +24,7 @@ def index(request):
         logged_in = True
 
     data = []
-    url = "Home Page"
+    url = "Home"
     try:
         locations = Location.objects.all()
         for x in locations:
@@ -156,7 +156,7 @@ def suggest_location(request):
     else:
         return redirect("/")
 
-    url = "Suggest Location"
+    url = "Suggest"
 
     try:
         suggested_locations = SuggestedLocation.objects.all()
