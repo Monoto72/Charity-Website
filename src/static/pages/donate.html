@@ -1,0 +1,32 @@
+<!-- static/donate.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!--Head-->
+{% include 'components/head.html' %}
+{% block head %} {% endblock %}
+
+<body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow h-max">
+    <!--Header-->
+    {% include 'components/header.html' %}
+    {% block header %} {% endblock %}
+
+    {% include 'components/messages.html' %}
+
+    <!--Content-->
+    <div class="flex flex-col justify-center items-center flex-grow h-screen py-24">
+
+    </div>
+
+    {% include 'components/body-wave.html' %}
+    {% block wave %} {% endblock %}
+
+    <!--Footer-->
+    {% include 'components/footer.html' %}
+    {% block footer %} {% endblock %}
+</body>
+<script src="{% static 'js/navbar.js' %}"></script>
+
+</html>

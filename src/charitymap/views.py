@@ -254,6 +254,16 @@ def suggest_new_location(request):
     return render(request, "suggest-new.html", { "page_url": url, "is_auth": logged_in })
 
 
+def donate(request):
+    logged_in = False
+    url = "Donate"
+    
+    if request.user.is_authenticated:
+        logged_in = True
+
+    return render(request, "donate.html", { "page_url": url, "is_auth": logged_in })
+
+
 def error_response(request, exception):
     return render(request, '404.html')
 
