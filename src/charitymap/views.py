@@ -6,6 +6,7 @@ from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+import requests
 
 def index(request):
     """The landing page, this allows users, and non authenticated users to see the locations avaliable, whilst also allowing them to navigated to other areas.
@@ -257,6 +258,24 @@ def suggest_new_location(request):
 def donate(request):
     logged_in = False
     url = "Donate"
+    
+    if request.user.is_authenticated:
+        logged_in = True
+
+    return render(request, "donate.html", { "page_url": url, "is_auth": logged_in })
+
+
+def donate_route(request):
+    logged_in = False
+    url = "Route"
+
+    url = "https://maps.googleapis.com/maps/api/directions/json?origin=Toledo&destination=Madrid&region=es&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
+
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    print(response.text)
     
     if request.user.is_authenticated:
         logged_in = True
