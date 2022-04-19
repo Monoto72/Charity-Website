@@ -17,16 +17,18 @@
     <!--Suggest Location-->
     <div class="px-4 pt-24">
         <div>
-            <h1 class="my-4 text-2xl md:text-3xl lg:text-5xl font-black leading-tight text-center">
+            <h1 class="my-4 text-2xl md:text-3xl lg:text-5xl font-bold text-white leading-tight text-center">
                 Suggestions
             </h1>
         </div>
-        <div class="flex justify-center">
-            <p class="leading-normaltext-gray-800 text-base md:text-xl lg:text-xl mb-8 text-center">
-                Want to help us future proof? Well, here you can. Please give us your input and vote the locations
-                below, ensuring your vote is correct.<br><i class="lg:text-base font-bold">If found abused, your account
-                    wil be locked!</i>
+        <div class="bg-white mx-auto max-w-lg rounded shadow-xl p-6 my-10">
+            <p class="leading-normal text-gray-600 text-base md:text-xl lg:text-xl justify-center">
+                Want to add your own shop to our database?<br>Or just help us find unlisted locations?
             </p>
+			<p class="leading-normal text-gray-600 text-base md:text-xl lg:text-xl justify-center mt-4">
+                Click <i class="font-bold text-gray-800">suggest a location</i> to add a new address to our database, and vote below to help us confirm new locations.
+            </p>
+			<p class="lg:text-base font-bold text-center mt-4">If found abused, your account wil be locked!</p>
         </div>
         <div class="flex justify-center pb-6">
             <a href="/suggest/new">
@@ -54,7 +56,7 @@
                             <th scope="col" class="px-3 md:px-6 py-3">
                                 Address
                             </th>
-                            <th scope="col" class="px-3 md:px-6 py-3">
+							<th scope="col" class="px-3 md:px-6 py-3">
                                 Votes
                             </th>
                             <th scope="col" class="px-3 md:px-6 py-3">
@@ -69,11 +71,8 @@
                             <th scope="row" class="px-3 md:px-6 py-3 font-medium text-gray-900 dark:text-white">
                                 {{ i.name }}
                             </th>
-                            <td class="px-3 md:px-6 py-3 text-center">
-                                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" target="_blank"
-                                    href="https://www.google.com/maps/search/google+maps/@{{ i.geolocation.longitude }},{{ i.geolocation.latitude }},19z">
-                                    View
-                                </a>
+							<td class="px-3 md:px-6 py-3 text-center">
+                                {{ i.address }}
                             </td>
                             <td class="px-3 md:px-6 py-3 text-center">
                                 {{ i.votes }}
@@ -81,7 +80,7 @@
                             <td class="px-3 md:px-6 py-3 text-right">
                                 <button id="{{ forloop.counter }}"
                                     class="suggestion mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-2 px-8 shadow opacity-7">
-                                    Vote
+                                    View
                                 </button>
                             </td>
                         </tr>
@@ -98,7 +97,7 @@
                 class="hidden bg-black bg-opacity-50 flex justify-center items-center content-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
                 <div class="relative p-4 w-full max-w-2xl h-screen md:h-3/4 overscroll-auto">
                     <!-- Modal content -->
-                    <div class="relative bg-white h-full rounded-lg shadow dark:bg-gray-700">
+                    <div class="relative bg-white h-screen rounded-lg shadow dark:bg-gray-700">
                         <!-- Modal header -->
                         <div class="flex justify-between items-start p-5 rounded-t border-b dark:border-gray-600">
                             <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
@@ -116,7 +115,7 @@
                         </div>
                         <!-- Modal body -->
                         <div id="body" class="p-6 space-y-6">
-                            <div class="w-full h-1/4" id="map"></div>
+                            <div class="w-full h-1/2" id="map"></div>
                             <script
                                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A&callback=initMap"
                                 async>
@@ -140,9 +139,9 @@
                                         class="flex justify-center items-center p-4 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
                                         <button name="accepted_suggestion" id="accept-suggestion" type="submit"
                                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            Accept</button>
+                                            Correct</button>
                                         <button name="denied_suggestion" id="deny-suggestion" type="submit"
-                                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Incorrect</button>
                                     </div>
                                 </form>
                             </p>
