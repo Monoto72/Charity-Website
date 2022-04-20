@@ -1,12 +1,16 @@
+from turtle import distance
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.http import Http404
+from jinja2 import Undefined
 from charitymap.models import Location, SuggestedLocation, VotedLocations
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 import requests
+import math
+import json
 
 def index(request):
     """The landing page, this allows users, and non authenticated users to see the locations avaliable, whilst also allowing them to navigated to other areas.
@@ -268,19 +272,62 @@ def donate(request):
 def donate_route(request):
     logged_in = False
     url = "Route"
-
-    url = "https://maps.googleapis.com/maps/api/directions/json?origin=Toledo&destination=Madrid&region=es&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
-
-    payload = {}
-    headers = {}
-    response = requests.request("GET", url, headers=headers, data=payload)
-
-    print(response.text)
     
     if request.user.is_authenticated:
         logged_in = True
 
-    return render(request, "donate.html", { "page_url": url, "is_auth": logged_in })
+    user_gpt = { "longitude": 50.863990, "latitude": -0.990360 }
+    mode = "bicycling"
+    
+    geopts = []
+    
+    payload = {}
+    headers = {}
+    
+    try:
+        locations = Location.objects.all()
+        for x in locations:
+            location = str(x.geolocation).split(",")
+            geopt = { "longitude": float(location[0]), "latitude": float(location[1]) }
+            geopts.append(geopt)
+    except Location.DoesNotExist:
+        raise Http404('Database does not exist')
+    
+    dist_from_user = []
+    
+    for x in geopts:
+        dist = distance_meters(x["longitude"], user_gpt["longitude"], x["latitude"], user_gpt["latitude"])
+        dist_data = {
+            "dist": dist,
+            "geolocation": {
+                "longitude": x["longitude"],
+                "latitude": x["latitude"]
+            }
+        }
+        dist_from_user.append(dist_data)
+
+    clos_dist = min(dist_from_user["dist"] for dist_from_user in dist_from_user)
+    clos_dist_geolocation = [x["geolocation"] for x in dist_from_user if x["dist"] == clos_dist]
+    print(clos_dist)
+    print(clos_dist_geolocation[0]["longitude"])
+
+    url = f"https://maps.googleapis.com/maps/api/directions/json?origin={user_gpt['longitude']},{user_gpt['latitude']}&destination={clos_dist_geolocation[0]['longitude']},{clos_dist_geolocation[0]['latitude']}&mode={mode}&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
+    response = requests.request("GET", url, headers=headers, data=payload)
+    
+    json_object = json.loads(response.text)
+
+    return render(request, "donate-route.html", { "page_url": url, "is_auth": logged_in, "map_data": json_object })
+
+def distance_meters(db_lat, user_lat, db_long, user_long):
+    x = degrees_to_radius(db_long - user_long) * math.cos(degrees_to_radius((db_lat + user_lat) / 2))
+    y = degrees_to_radius(db_lat - user_lat)
+    distance = 6371000 * math.sqrt(x*x + y*y)
+    
+    return distance
+
+def degrees_to_radius(degrees):
+    pi = math.pi
+    return degrees * (pi/180)
 
 
 def error_response(request, exception):

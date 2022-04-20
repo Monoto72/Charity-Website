@@ -1,5 +1,6 @@
 <!-- static/donate.html -->
 {% load static %}
+{{ map_data | json_script:'mapEmbedDonate' }}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +17,7 @@
     {% include 'components/messages.html' %}
 
     <!--Content-->
+    <script src="{% static 'js/mapEmbedDonateRoute.js' %}"></script>
     <div class="px-4 pt-24">
         <div>
             <h1 class="my-4 text-2xl md:text-3xl lg:text-5xl font-black leading-tight text-center">
