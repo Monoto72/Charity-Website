@@ -8,6 +8,8 @@
 {% include 'components/head.html' %}
 {% block head %} {% endblock %}
 
+<script src="{% static 'js/mapEmbedDonate.js' %}"></script>
+
 <body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow h-max">
     <!--Header-->
     {% include 'components/header.html' %}
@@ -16,7 +18,7 @@
     {% include 'components/messages.html' %}
 
     <!--Content-->
-    <div class="px-4 pt-24">
+    <div class=" py-24">
         <div>
             <h1 class="my-4 text-2xl md:text-3xl lg:text-5xl font-black leading-tight text-center">
                 Donate
@@ -24,8 +26,82 @@
         </div>
         <div class="flex justify-center">
             <p class="leading-normaltext-gray-800 text-base md:text-xl lg:text-xl mb-8 text-center">
-                Wanting to donate an item to one of the listed charities, and can't determine which? <br>Well, select one of the buttons below, and we'll direct you to the closest one based on your input.
+                Wanting to donate an item to one of the listed charities, and can't determine which? <br>Well, select
+                one of the buttons below, and we'll direct you to the closest one based on your input.
             </p>
+        </div>
+        <div class="flex justify-center py-2 mx-auto max-w-2xl">
+            <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A&libraries=places"
+                async></script>
+            <input name="address" id="suggestion-address"
+                class="form-control w-full p-4 rounded text-center focus:bg-gray-100 donate-address-input" type="text"
+                placeholder="Please enter a valid address" required></input>
+        </div>
+        <div class="flex justify-center pb-2 mx-auto max-w-2xl custom-form">
+            <select name="type" id="select-transport"
+                class="bg-white form-control w-full p-4 rounded text-center focus:bg-gray-100">
+                <option value="driving">Driving</option>
+                <option value="bicycling">Bicycling</option>
+                <option value="transit">Transit</option>
+                <option value="walking">Walking</option>
+            </select>
+        </div>
+
+        <div class="collapsible mx-auto max-w-4xl pb-6">
+            <button
+                class="p-4 rounded w-full text-white text-2xl font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">Clothing</button>
+            <div id="coll" class="collapsible-content hidden bg-white p-6 mt-2 rounded text-center">
+                <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                    incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex
+                    ea commodo consequat.</p>
+
+                <form method="POST" class="justify-center items-center">
+                    {% csrf_token %}
+                    <input name="location" id="suggestion-geolocation" class="form-control pointer-events-none hidden"
+                        type="text" required></input>
+                    <input name="type" id="type" class="form-control pointer-events-none hidden" type="text"
+                        value="both"></input>
+                    <input name="transport-type" id="transport-type" class="form-control pointer-events-none hidden"
+                        type="text" value="driving"></input>
+                    <br>
+                    <div
+                        class="flex justify-center items-center pb-2 pt-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                        <br><button name="user_location" class="w-1/2 p-2 rounded-lg" type="submit">Slap me for a
+                            route</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="collapsible mx-auto max-w-4xl pb-6">
+            <button
+                class="p-4 rounded w-full text-white text-2xl font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">Furniture</button>
+            <div id="coll" class="collapsible-content hidden bg-white p-6 mt-2 rounded text-center">
+                <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                    incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex
+                    ea commodo consequat.</p>
+
+                <form method="POST" class="justify-center items-center">
+                    {% csrf_token %}
+                    <input name="location" id="suggestion-geolocation" class="form-control pointer-events-none hidden"
+                        type="text" required></input>
+                    <input name="type" id="type" class="form-control pointer-events-none hidden" type="text"
+                        value="shop"></input>
+                    <input name="transport-type" id="transport-type" class="form-control pointer-events-none hidden"
+                        type="text" value="driving"></input>
+                    <br>
+                    <div
+                        class="flex justify-center items-center pb-2 pt-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                        <br><button name="user_location" class="w-1/2 p-2 rounded-lg" type="submit">Slap me for a
+                            route</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -37,5 +113,6 @@
     {% block footer %} {% endblock %}
 </body>
 <script src="{% static 'js/navbar.js' %}"></script>
+<script src="{% static 'js/donate.js' %}"></script>
 
 </html>

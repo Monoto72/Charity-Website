@@ -1,4 +1,5 @@
 const mapData = JSON.parse(document.getElementById(`mapEmbedDonate`).textContent);
+console.log(mapData)
 
 let map;
 let toggle = false;
@@ -81,7 +82,7 @@ function initMap() {
 
     const mapOptions = {
         center: new google.maps.LatLng(50.816946, -1.089735),
-        zoom: 12,
+        zoom: 0,
         styles: mapStyles,
         mapTypeControl: false,
         disableDefaultUI: true,

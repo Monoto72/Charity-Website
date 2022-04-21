@@ -11,6 +11,7 @@ from django.contrib.auth.forms import AuthenticationForm
 import requests
 import math
 import json
+import random
 
 def index(request):
     """The landing page, this allows users, and non authenticated users to see the locations avaliable, whilst also allowing them to navigated to other areas.
@@ -263,21 +264,32 @@ def donate(request):
     logged_in = False
     url = "Donate"
     
+    types = ["shop", "bin"]
+    
     if request.user.is_authenticated:
         logged_in = True
+
+    if request.method == "POST":
+        location = request.POST.get("location").split(",")
+        type = request.POST.get("type")
+        transport_type = request.POST.get("transport-type")
+   
+        if "user_location" in request.POST:
+            if type == "both":
+                type = random.choice(types)
+            return redirect(f"/donate/user-loc={location[0]},{location[1]}&type={type}&travel-type={transport_type}")
 
     return render(request, "donate.html", { "page_url": url, "is_auth": logged_in })
 
 
-def donate_route(request):
+def donate_route(request, lat, lng, type, transport):
     logged_in = False
     url = "Route"
     
     if request.user.is_authenticated:
         logged_in = True
 
-    user_gpt = { "longitude": 50.863990, "latitude": -0.990360 }
-    mode = "bicycling"
+    user_gpt = { "longitude": float(lat), "latitude": float(lng) }
     
     geopts = []
     
@@ -285,7 +297,7 @@ def donate_route(request):
     headers = {}
     
     try:
-        locations = Location.objects.all()
+        locations = Location.objects.all() # Filter to come soon for Bin and Shop
         for x in locations:
             location = str(x.geolocation).split(",")
             geopt = { "longitude": float(location[0]), "latitude": float(location[1]) }
@@ -308,10 +320,8 @@ def donate_route(request):
 
     clos_dist = min(dist_from_user["dist"] for dist_from_user in dist_from_user)
     clos_dist_geolocation = [x["geolocation"] for x in dist_from_user if x["dist"] == clos_dist]
-    print(clos_dist)
-    print(clos_dist_geolocation[0]["longitude"])
 
-    url = f"https://maps.googleapis.com/maps/api/directions/json?origin={user_gpt['longitude']},{user_gpt['latitude']}&destination={clos_dist_geolocation[0]['longitude']},{clos_dist_geolocation[0]['latitude']}&mode={mode}&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
+    url = f"https://maps.googleapis.com/maps/api/directions/json?origin={user_gpt['longitude']},{user_gpt['latitude']}&destination={clos_dist_geolocation[0]['longitude']},{clos_dist_geolocation[0]['latitude']}&mode={transport}&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
     
     response = requests.request("GET", url, headers=headers, data=payload)
     json_object = json.loads(response.text)
