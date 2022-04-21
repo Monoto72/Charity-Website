@@ -63,22 +63,40 @@
 				<div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
 			</div>
 
-			<div
-				class="flex flex-1 flex-wrap max-w-4xl mx-auto items-center justify-between text-xl text-gray-500 font-bold opacity-75">
-				<span class="w-1/2 p-4 md:w-auto flex items-center"><svg
-						class="h-10 w-10 mr-4 fill-current text-gray-500 opacity-75" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20">
-						<path d="M7 0H6L0 3v6l4-1v12h12V8l4 1V3l-6-3h-1a3 3 0 0 1-6 0z" /></svg>
-					> Clothing
-				</span>
-
-				<span class="w-1/2 p-4 md:w-auto flex items-center"><svg
-						class="h-10 w-10 mr-4 fill-current text-gray-500 opacity-75" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20">
-						<path d="M7 0H6L0 3v6l4-1v12h12V8l4 1V3l-6-3h-1a3 3 0 0 1-6 0z" /></svg>
-					> Furniture
-				</span>
+			<style>
+				.collapsible-content {
+					max-height: 0;
+					overflow: hidden;
+					transition: 0.2s ease-out;
+					content: '\02795';
+				}
+			</style>
+			
+			<div class="mx-auto max-w-4xl pb-4">
+				<button
+					class="collapsible p-4 rounded w-full text-white text-2xl font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">Charity
+					Shop</button>
+				<div class="collapsible-content">
+					<p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+						labore et
+						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+						ea commodo consequat.</p>
+				</div>
 			</div>
+			
+			<div class="mx-auto max-w-4xl">
+				<button
+					class="collapsible p-4 rounded w-full text-white text-2xl font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">Textile
+					Bins</button>
+				<div class="collapsible-content">
+					<p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+						labore et
+						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+						ea commodo consequat.</p>
+				</div>
+			</div>
+			
+			<script src="{% static 'js/toggleCollapsibleContent.js' %}"></script>
 		</div>
 	</section>
 	<!--Footer-->
