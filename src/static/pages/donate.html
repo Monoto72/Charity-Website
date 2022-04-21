@@ -48,61 +48,75 @@
             </select>
         </div>
 
-        <div class="collapsible mx-auto max-w-4xl pb-6">
-            <button
-                class="p-4 rounded w-full text-white text-2xl font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">Clothing</button>
-            <div id="coll" class="collapsible-content hidden bg-white p-6 mt-2 rounded text-center">
-                <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                    incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex
-                    ea commodo consequat.</p>
+		<div class="mx-auto justify-center w-full items-center shadow-xl element-shadow rounded-lg bg-white mt-16 p-3 max-w-4xl">
+			<style>
+				.collapsible-content {
+					max-height: 0;
+					overflow: hidden;
+					transition: 0.2s ease-out;
+					content: '\02795';
+				}
+			</style>
+			
+			<div class="mx-auto max-w-4xl pb-4">
+				<button
+					class="collapsible p-4 rounded w-full text-white text-2xl font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">
+					Clothing
+				</button>
+				<div class="collapsible-content">
+					<p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+						labore et
+						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+						ea commodo consequat.
+					</p>
+					<form method="POST" class="justify-center items-center">
+						{% csrf_token %}
+						<input name="location" id="suggestion-geolocation" class="form-control pointer-events-none hidden" type="text"
+							required></input>
+						<input name="type" id="type" class="form-control pointer-events-none hidden" type="text" value="both"></input>
+						<input name="transport-type" id="transport-type" class="form-control pointer-events-none hidden" type="text"
+							value="driving"></input>
+						<br>
+						<div
+							class="flex justify-center items-center pb-2 pt-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+							<br><button name="user_location" class="w-1/2 p-2 rounded-lg" type="submit">Slap me for a
+								route</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<div class="mx-auto max-w-4xl">
+				<button
+					class="collapsible p-4 rounded w-full text-white text-2xl font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">
+					Furniture
+				</button>
+				<div class="collapsible-content">
+					<p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+						labore et
+						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+						ea commodo consequat.
+					</p>
+					<form method="POST" class="justify-center items-center">
+						{% csrf_token %}
+						<input name="location" id="suggestion-geolocation" class="form-control pointer-events-none hidden" type="text"
+							required></input>
+						<input name="type" id="type" class="form-control pointer-events-none hidden" type="text" value="shop"></input>
+						<input name="transport-type" id="transport-type" class="form-control pointer-events-none hidden" type="text"
+							value="driving"></input>
+						<br>
+						<div
+							class="flex justify-center items-center pb-2 pt-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+							<br><button name="user_location" class="w-1/2 p-2 rounded-lg" type="submit">Slap me for a
+								route</button>
+						</div>
+					</form>
+				</div>
 
-                <form method="POST" class="justify-center items-center">
-                    {% csrf_token %}
-                    <input name="location" id="suggestion-geolocation" class="form-control pointer-events-none hidden"
-                        type="text" required></input>
-                    <input name="type" id="type" class="form-control pointer-events-none hidden" type="text"
-                        value="both"></input>
-                    <input name="transport-type" id="transport-type" class="form-control pointer-events-none hidden"
-                        type="text" value="driving"></input>
-                    <br>
-                    <div
-                        class="flex justify-center items-center pb-2 pt-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                        <br><button name="user_location" class="w-1/2 p-2 rounded-lg" type="submit">Slap me for a
-                            route</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+			<script src="{% static 'js/toggleCollapsibleContent.js' %}"></script>
 
-        <div class="collapsible mx-auto max-w-4xl pb-6">
-            <button
-                class="p-4 rounded w-full text-white text-2xl font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">Furniture</button>
-            <div id="coll" class="collapsible-content hidden bg-white p-6 mt-2 rounded text-center">
-                <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                    incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex
-                    ea commodo consequat.</p>
-
-                <form method="POST" class="justify-center items-center">
-                    {% csrf_token %}
-                    <input name="location" id="suggestion-geolocation" class="form-control pointer-events-none hidden"
-                        type="text" required></input>
-                    <input name="type" id="type" class="form-control pointer-events-none hidden" type="text"
-                        value="shop"></input>
-                    <input name="transport-type" id="transport-type" class="form-control pointer-events-none hidden"
-                        type="text" value="driving"></input>
-                    <br>
-                    <div
-                        class="flex justify-center items-center pb-2 pt-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                        <br><button name="user_location" class="w-1/2 p-2 rounded-lg" type="submit">Slap me for a
-                            route</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+			</div>
+		</div>
     </div>
 
     {% include 'components/body-wave.html' %}
