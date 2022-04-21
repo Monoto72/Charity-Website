@@ -1,0 +1,102 @@
+<!-- static/faq.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!--Head-->
+{% include 'components/head.html' %}
+{% block head %} {% endblock %}
+
+{% include 'components/messages.html' %}
+
+<body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow h-max">
+    <!--Header-->
+    {% include 'components/header.html' %}
+    {% block header %} {% endblock %}
+
+	<!--FAQ-->
+	<div class="flex flex-col justify-center items-center flex-grow py-36">
+
+		<h1 class="text-center text-white text-6xl font-bold pb-10">Frequently Asked Questions</h1>
+        <div class="justify-center w-full items-center shadow-xl element-shadow rounded-lg bg-white mb-8 p-10 max-w-4xl">
+			
+			<style>
+				.collapsible-content {
+					max-height: 0;
+					overflow: hidden;
+					transition: 0.2s ease-out;
+					content: '\02795';
+				}
+			</style>
+
+			<button
+				class="collapsible p-3 my-2 text-left rounded w-full text-gray-700 font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">
+				What is the difference between a charity shop and a clothes bin?
+			</button>
+			<div class="collapsible-content">
+				<p class="my-3">
+					A charity shop is a building run by an organisation where you can donate unwanted items in person. A clothes bin (often
+					referred to as a textile bin or a donation bin) is a public container in which items of clothes can be placed inside to
+					be regularly collected by the charity organisation which it is associcated with.
+				</p>
+			</div>
+
+			<button
+				class="collapsible p-3 my-2 text-left rounded w-full text-gray-700 font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">
+				When should I use a charity shop?
+			</button>
+			<div class="collapsible-content">
+				<p class="my-3">
+					Charity shops are ideal for items in good condition to be sold in the store. It is also able to accept non-clothing
+					items such as furniture, books and toys.
+				</p>
+			</div>
+
+			<button
+				class="collapsible p-3 my-2 text-left rounded w-full text-gray-700 font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">
+				When should I use a clothes bin?
+			</button>
+			<div class="collapsible-content">
+				<p class="my-3">
+					Clothes bins are ideal for large quantities of clothes, including items that are in imperfect condition to be recycled
+					for textiles. However be sure to follow the guidelines on what items and what condition they can be donated in.
+				</p>
+			</div>
+
+			<button
+				class="collapsible p-3 my-2 text-left rounded w-full text-gray-700 font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">
+				What charities and organisations can be found on Drip Drop?
+			</button>
+			<div class="collapsible-content">
+				<p class="my-3">
+					Drip Drop uses The Salvation Army's list of donation spots and Google Maps for other organisations. As well as this, we
+					take <a href="/suggest" class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600">user suggested locations</a> for unlisted spots.
+				</p>
+			</div>
+
+			<button
+				class="collapsible p-3 my-2 text-left rounded w-full text-gray-700 font-semibold bg-gradient-to-r from-blue-200 to-blue-400 hover:from-blue-300 hover:to-blue-500">
+				Question
+			</button>
+			<div class="collapsible-content">
+				<p class="my-3">
+					Answer
+				</p>
+			</div>
+			
+			<script src="{% static 'js\toggleCollapsibleContent.js' %}"></script>
+
+        </div>
+    </div>
+
+	{% include 'components/body-wave.html' %}
+    {% block wave %} {% endblock %}
+
+    <!--Footer-->
+	{% include 'components/footer.html' %}
+	{% block footer %} {% endblock %}
+</body>
+<script src="{% static 'js/navbar.js' %}"></script>
+
+</html>

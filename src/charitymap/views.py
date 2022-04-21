@@ -358,6 +358,10 @@ def degrees_to_radius(degrees):
     return degrees * (pi/180)
 
 
+def faq(request):
+	return render(request, 'faq.html')
+
+
 def error_response(request, exception):
     return render(request, '404.html')
 
