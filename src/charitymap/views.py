@@ -312,9 +312,27 @@ def donate_route(request):
     print(clos_dist_geolocation[0]["longitude"])
 
     url = f"https://maps.googleapis.com/maps/api/directions/json?origin={user_gpt['longitude']},{user_gpt['latitude']}&destination={clos_dist_geolocation[0]['longitude']},{clos_dist_geolocation[0]['latitude']}&mode={mode}&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
-    response = requests.request("GET", url, headers=headers, data=payload)
     
+    response = requests.request("GET", url, headers=headers, data=payload)
     json_object = json.loads(response.text)
+    
+    """ Road API snap to location back-end stuffs (Uneeded and impractical for this APP)
+    payload2 = {}
+    headers2 = {}
+    
+    poly_point_str = ""
+    
+    for index, x in enumerate(json_object["routes"][0]["legs"][0]["steps"]):
+        if index == 0:
+            poly_point_str = f"{x['start_location']['lat']},{x['start_location']['lng']}"
+        else:
+            poly_point_str += f"|{x['end_location']['lat']},{x['end_location']['lng']}"
+            
+    url = f"https://roads.googleapis.com/v1/snapToRoads?path={poly_point_str}&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
+    
+    response2 = requests.request("GET", url, headers=headers2, data=payload2)
+    data = json.loads(response2.text)
+    """
 
     return render(request, "donate-route.html", { "page_url": url, "is_auth": logged_in, "map_data": json_object })
 
