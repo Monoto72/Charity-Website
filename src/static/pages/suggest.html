@@ -22,13 +22,14 @@
             </h1>
         </div>
         <div class="bg-white mx-auto max-w-lg rounded shadow-xl p-6 my-10">
-            <p class="leading-normal text-gray-600 text-base md:text-xl lg:text-xl justify-center">
+            <p class="leading-normal text-center text-gray-600 text-base md:text-xl lg:text-xl justify-center">
                 Want to add your own shop to our database?<br>Or just help us find unlisted locations?
             </p>
-			<p class="leading-normal text-gray-600 text-base md:text-xl lg:text-xl justify-center mt-4">
-                Click <i class="font-bold text-gray-800">suggest a location</i> to add a new address to our database, and vote below to help us confirm new locations.
+            <p class="leading-normal text-center text-gray-600 text-base md:text-xl lg:text-xl justify-center mt-4">
+                Click <i class="font-bold text-gray-800">suggest a location</i> to add a new address to our database,
+                and vote below to help us confirm new locations.
             </p>
-			<p class="lg:text-base font-bold text-center mt-4">If found abused, your account wil be locked!</p>
+            <p class="lg:text-base font-bold text-center mt-4">If found abused, your account wil be locked!</p>
         </div>
         <div class="flex justify-center pb-6">
             <a href="/suggest/new">
@@ -44,112 +45,110 @@
     <h2>There are no places to vote</h2>
     {% else %}
     <div class="flex items-center w-full mx-auto md:max-w-4xl pb-24">
-    <div class="bg-white w-full flex justify-center md:w-full rounded shadow-xl">
-        <div class="w-full relative shadow-md sm:rounded-lg bg-white">
-            <div class="p-4">
-                <table id="charity-suggestions" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-3 md:px-6 py-3">
-                                Name
-                            </th>
-                            <th scope="col" class="px-3 md:px-6 py-3">
-                                Address
-                            </th>
-							<th scope="col" class="px-3 md:px-6 py-3">
-                                Votes
-                            </th>
-                            <th scope="col" class="px-3 md:px-6 py-3">
-                                <span class="sr-only">Edit</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in map_data %}
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-3 md:px-6 py-3 font-medium text-gray-900 dark:text-white">
-                                {{ i.name }}
-                            </th>
-							<td class="px-3 md:px-6 py-3 text-center">
-                                {{ i.address }}
-                            </td>
-                            <td class="px-3 md:px-6 py-3 text-center">
-                                {{ i.votes }}
-                            </td>
-                            <td class="px-3 md:px-6 py-3 text-right">
-                                <button id="{{ forloop.counter }}"
-                                    class="suggestion mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-2 px-8 shadow opacity-7">
-                                    View
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="bg-white w-full flex justify-center md:w-full rounded shadow-xl">
+            <div class="w-full relative shadow-md sm:rounded-lg bg-white">
+                <div class="p-4">
+                    <table id="charity-suggestions" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-3 md:px-6 py-3">
+                                    Name
+                                </th>
+                                <th scope="col" class="px-3 md:px-6 py-3">
+                                    Address
+                                </th>
+                                <th scope="col" class="px-3 md:px-6 py-3">
+                                    Votes
+                                </th>
+                                <th scope="col" class="px-3 md:px-6 py-3">
+                                    <span class="sr-only">Edit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in map_data %}
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row" class="px-3 md:px-6 py-3 font-medium text-gray-900 dark:text-white">
+                                    {{ i.name }}
+                                </th>
+                                <td class="px-3 md:px-6 py-3 text-center">
+                                    {{ i.address }}
+                                </td>
+                                <td class="px-3 md:px-6 py-3 text-center">
+                                    {{ i.votes }}
+                                </td>
+                                <td class="px-3 md:px-6 py-3 text-right">
+                                    <button id="{{ forloop.counter }}"
+                                        class="suggestion mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-2 px-4 shadow opacity-7">
+                                        View
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        </div>
-        </div>
-        <div class="flex m-6 md:px-0 md:m-12 w-1/2 rounded shadow-xl">
-            <script src="{% static 'js/mapEmbedSuggest.js' %}"></script>
-            <div id="modal" tabindex="-1" aria-hidden="true"
-                class="hidden bg-black bg-opacity-50 flex justify-center items-center content-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-                <div class="relative p-4 w-full max-w-2xl h-screen md:h-3/4 overscroll-auto">
-                    <!-- Modal content -->
-                    <div class="relative bg-white h-screen rounded-lg shadow dark:bg-gray-700">
-                        <!-- Modal header -->
-                        <div class="flex justify-between items-start p-5 rounded-t border-b dark:border-gray-600">
-                            <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
-                            </h3>
-                            <button id="close-suggestion" type="button"
-                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                data-modal-toggle="modal">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <!-- Modal body -->
-                        <div id="body" class="p-6 space-y-6">
-                            <div class="w-full h-1/2" id="map"></div>
-                            <script
-                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A&callback=initMap"
-                                async>
-                            </script>
-                            <p class="text-base text-center leading-relaxed text-gray-500 dark:text-gray-400">
-                                <form method="POST" class="justify-center items-center">
-                                    {% csrf_token %}
-                                    <div class="text-center w-full custom-form">
-                                        <h2 class="font-bold">Address</h2>
-                                        <input name="address" id="suggestion-address"
-                                            class="form-control pointer-events-none" type="text"></input>
-                                        <h2 class="font-bold">GeoLocation</h2>
-                                        <input name="location" id="suggestion-geolocation"
-                                            class="form-control pointer-events-none" type="text"></input>
-                                        <h2 class="font-bold">Type</h2>
-                                        <input name="type" id="suggestion-type" class="form-control pointer-events-none"
-                                            type="text"></input>
-                                    </div>
-                                    <br>
-                                    <div
-                                        class="flex justify-center items-center p-4 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                                        <button name="accepted_suggestion" id="accept-suggestion" type="submit"
-                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            Correct</button>
-                                        <button name="denied_suggestion" id="deny-suggestion" type="submit"
-                                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Incorrect</button>
-                                    </div>
-                                </form>
-                            </p>
-                        </div>
+    </div>
+    <div class="flex m-6 md:px-0 md:m-12 w-1/2 rounded shadow-xl">
+        <script src="{% static 'js/mapEmbedSuggest.js' %}"></script>
+        <div id="modal" tabindex="-1" aria-hidden="true"
+            class="hidden bg-black bg-opacity-50 flex justify-center items-center content-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+            <div class="relative p-4 w-full max-w-2xl h-screen md:h-3/4 overscroll-auto">
+                <!-- Modal content -->
+                <div class="relative bg-white h-full md:h-full rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex justify-between items-start p-5 rounded-t border-b dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
+                        </h3>
+                        <button id="close-suggestion" type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-toggle="modal">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div id="body" class="space-y-6">
+                        <div class="w-full h-1/3 md:h-1/2" id="map"></div>
+                        <script
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A&callback=initMap"
+                            async>
+                        </script>
+                        <form method="POST" class="justify-center items-center">
+                            {% csrf_token %}
+                            <div class="text-center w-full custom-form">
+                                <h2 class="font-bold">Address</h2>
+                                <input name="address" id="suggestion-address" class="form-control pointer-events-none"
+                                    type="text"></input>
+                                <h2 class="font-bold">GeoLocation</h2>
+                                <input name="location" id="suggestion-geolocation"
+                                    class="form-control pointer-events-none" type="text"></input>
+                                <h2 class="font-bold">Type</h2>
+                                <input name="type" id="suggestion-type" class="form-control pointer-events-none"
+                                    type="text"></input>
+                            </div>
+                            <br>
+                            <div
+                                class="flex justify-center bg-white items-center p-4 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                                <button name="accepted_suggestion" id="accept-suggestion" type="submit"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Correct</button>
+                                <button name="denied_suggestion" id="deny-suggestion" type="submit"
+                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Incorrect</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     {% endif %}
 
