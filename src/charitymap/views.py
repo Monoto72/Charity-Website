@@ -1,11 +1,17 @@
+from turtle import distance
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.http import Http404
+from jinja2 import Undefined
 from charitymap.models import Location, SuggestedLocation, VotedLocations
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+import requests
+import math
+import json
+import random
 
 def index(request):
     """The landing page, this allows users, and non authenticated users to see the locations avaliable, whilst also allowing them to navigated to other areas.
@@ -252,6 +258,104 @@ def suggest_new_location(request):
             except SuggestedLocation.DoesNotExist:
                 raise Http404('Database does not exist')
     return render(request, "suggest-new.html", { "page_url": url, "is_auth": logged_in })
+
+
+def donate(request):
+    logged_in = False
+    url = "Donate"
+    
+    types = ["shop", "bin"]
+    
+    if request.user.is_authenticated:
+        logged_in = True
+
+    if request.method == "POST":
+        location = request.POST.get("location").split(",")
+        type = request.POST.get("type")
+        transport_type = request.POST.get("transport-type")
+   
+        if "user_location" in request.POST:
+            if type == "both":
+                type = random.choice(types)
+            return redirect(f"/donate/user-loc={location[0]},{location[1]}&type={type}&travel-type={transport_type}")
+
+    return render(request, "donate.html", { "page_url": url, "is_auth": logged_in })
+
+
+def donate_route(request, lat, lng, type, transport):
+    logged_in = False
+    url = "Route"
+    
+    if request.user.is_authenticated:
+        logged_in = True
+
+    user_gpt = { "longitude": float(lat), "latitude": float(lng) }
+    
+    geopts = []
+    
+    payload = {}
+    headers = {}
+    
+    try:
+        locations = Location.objects.all() # Filter to come soon for Bin and Shop
+        for x in locations:
+            location = str(x.geolocation).split(",")
+            geopt = { "longitude": float(location[0]), "latitude": float(location[1]) }
+            geopts.append(geopt)
+    except Location.DoesNotExist:
+        raise Http404('Database does not exist')
+    
+    dist_from_user = []
+    
+    for x in geopts:
+        dist = distance_meters(x["longitude"], user_gpt["longitude"], x["latitude"], user_gpt["latitude"])
+        dist_data = {
+            "dist": dist,
+            "geolocation": {
+                "longitude": x["longitude"],
+                "latitude": x["latitude"]
+            }
+        }
+        dist_from_user.append(dist_data)
+
+    clos_dist = min(dist_from_user["dist"] for dist_from_user in dist_from_user)
+    clos_dist_geolocation = [x["geolocation"] for x in dist_from_user if x["dist"] == clos_dist]
+
+    url = f"https://maps.googleapis.com/maps/api/directions/json?origin={user_gpt['longitude']},{user_gpt['latitude']}&destination={clos_dist_geolocation[0]['longitude']},{clos_dist_geolocation[0]['latitude']}&mode={transport}&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
+    
+    response = requests.request("GET", url, headers=headers, data=payload)
+    json_object = json.loads(response.text)
+    
+    """ Road API snap to location back-end stuffs (Uneeded and impractical for this APP)
+    payload2 = {}
+    headers2 = {}
+    
+    poly_point_str = ""
+    
+    for index, x in enumerate(json_object["routes"][0]["legs"][0]["steps"]):
+        if index == 0:
+            poly_point_str = f"{x['start_location']['lat']},{x['start_location']['lng']}"
+        else:
+            poly_point_str += f"|{x['end_location']['lat']},{x['end_location']['lng']}"
+            
+    url = f"https://roads.googleapis.com/v1/snapToRoads?path={poly_point_str}&key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A"
+    
+    response2 = requests.request("GET", url, headers=headers2, data=payload2)
+    data = json.loads(response2.text)
+    """
+
+    return render(request, "donate-route.html", { "page_url": url, "is_auth": logged_in, "map_data": json_object })
+
+def distance_meters(db_lat, user_lat, db_long, user_long):
+    x = degrees_to_radius(db_long - user_long) * math.cos(degrees_to_radius((db_lat + user_lat) / 2))
+    y = degrees_to_radius(db_lat - user_lat)
+    distance = 6371000 * math.sqrt(x*x + y*y)
+    
+    return distance
+
+def degrees_to_radius(degrees):
+    pi = math.pi
+    return degrees * (pi/180)
 
 
 def error_response(request, exception):

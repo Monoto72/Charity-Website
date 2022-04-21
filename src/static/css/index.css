@@ -61,6 +61,14 @@ button,
     outline: none;
 }
 
+.donate-address-input {
+    box-shadow: inset 0 0 5px #000000;
+}
+
+.donate-address-input:focus {
+    outline: none;
+}
+
 .custom-error {
     margin: 5px 0 5px 0;
     padding: 5px 0 5px 0;
@@ -70,4 +78,8 @@ button,
 
 .close-message {
     box-shadow: inset 0 0 10px black;
+}
+
+.collapsible-content {
+    transition: 0.2s ease-out;
 }
