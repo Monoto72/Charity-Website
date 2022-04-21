@@ -154,7 +154,7 @@ def suggest_location(request):
     if request.user.is_authenticated:
         logged_in = True
     else:
-        return redirect("/")
+        return redirect("/register")
 
     url = "Suggest"
 
