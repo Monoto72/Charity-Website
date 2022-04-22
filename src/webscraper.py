@@ -14,6 +14,9 @@ import pgeocode
 
 # SQLITE Database imports
 import sqlite3
+
+print("am running")
+
 db_connection = sqlite3.connect('db.sqlite3')
 
 # Set up geolocation to convert postcode to long/lat
@@ -64,5 +67,5 @@ for result in find_results:
 
     location_results.append(result_dict) 
 
-db_connection.executemany('INSERT OR REPLACE INTO charitymap_location(name, created_at, updated, address, geolocation, type) VALUES (?,?,?,?,?,?)', location_results)
+db_connection.executemany('INSERT OR REPLACE INTO charitymap_location (name, created_at, updated, address, geolocation, type) VALUES (?,?,?,?,?,?)', location_results)
 db_connection.commit()
