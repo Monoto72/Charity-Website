@@ -11,6 +11,6 @@ urlpatterns = [
     path('suggest/new', views.suggest_new_location, name='suggest-new'),
     path('donate/', views.donate, name='donate'),
     path('donate/user-loc=<str:lat>,<str:lng>&type=<str:type>&travel-type=<str:transport>', views.donate_route, name='donate-route'),
-    path('faq', views.faq, name='faq'),
+    path('faq/', views.faq, name='faq'),
 	#path('about/', AboutPageView.as_view(), name='about')
 ]
