@@ -8,7 +8,7 @@ class Location(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    address = map_fields.AddressField(max_length=200)
+    address = map_fields.AddressField(max_length=200, unique=True)
     geolocation = map_fields.GeoLocationField(max_length=100)
     class Type(models.TextChoices):
         Store = '1',
