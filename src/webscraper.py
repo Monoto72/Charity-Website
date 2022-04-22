@@ -12,6 +12,10 @@ from selenium.webdriver.common.by import By
 # Finding geolocation values from postcode.
 import pgeocode
 
+# SQLITE Database imports
+import sqlite3
+db_connection = sqlite3.connect('db.sqlite3')
+
 # Set up geolocation to convert postcode to long/lat
 set_geolocation = pgeocode.Nominatim('GB')
 
