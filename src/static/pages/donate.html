@@ -8,8 +8,6 @@
 {% include 'components/head.html' %}
 {% block head %} {% endblock %}
 
-<script src="{% static 'js/mapEmbedDonate.js' %}"></script>
-
 <body class="gradient leading-relaxed tracking-wide flex flex-col flex-grow h-max">
     <!--Header-->
     {% include 'components/header.html' %}
@@ -34,6 +32,7 @@
             <script type="text/javascript"
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ9-IagGyXsTI1nd5gvuUM3_bz3yFLm9A&libraries=places"
                 async></script>
+				<script src="{% static 'js/mapEmbedDonate.js' %}"></script>
             <input name="address" id="suggestion-address"
                 class="form-control w-full p-4 rounded text-center focus:bg-gray-100 donate-address-input" type="text"
                 placeholder="Please enter a valid address" required></input>
